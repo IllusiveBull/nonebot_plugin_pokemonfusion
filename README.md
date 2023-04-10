@@ -4,9 +4,17 @@
 ```pip install nonebot_plugin_pokemonfusion```
 或
 ```nb plugin install nonebot_plugin_pokemonfusion```
+# 配置
+在.env中添加
+
+```
+enable_transparent = True
+```
+
+可以使机器人发送透明png（由于QQ的透明通道有bug所以不建议）
 # 使用
 ```融合 [宝可梦A] [宝可梦B]```
-参数留空则随机融合，可在代码第33行修改```enable_transparent = True```使机器人发送透明png。
+参数留空则随机融合，可在代码第33行修改```enable_transparent = True```
 # 相关链接
 作者及粉丝的原创精灵仓库 https://github.com/Aegide/custom-fusion-sprites
 
