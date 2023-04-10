@@ -13,6 +13,7 @@ setuptools.setup(
   long_description=long_description,
   long_description_content_type="text/markdown",
   url="https://github.com/IllusiveBull/nonebot_plugin_pokemonfusion",
+  include_package_data = True,
   packages=setuptools.find_packages(),
   classifiers=[
   "Programming Language :: Python :: 3",
@@ -20,5 +21,5 @@ setuptools.setup(
   "Operating System :: OS Independent",
   ],
   install_requires=requirements,    
-  package_data = ["resources/pokemons.json"]
+  package_data = {"nonebot_plugin_pokemonfusion":["nonebot_plugin_pokemonfusion/resources/pokemons.json"]},
 )
