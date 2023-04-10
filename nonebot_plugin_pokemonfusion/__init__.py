@@ -2,8 +2,9 @@ from nonebot.plugin import on_command
 from nonebot.adapters.onebot.v11 import Message, MessageSegment, MessageEvent
 from nonebot.params import CommandArg
 from nonebot.utils import run_sync
+from nonebot.log import logger
 
-import requests
+import httpx
 import json
 import difflib
 from io import BytesIO
@@ -41,17 +42,18 @@ def res2BytesIO(res, enable_transparent = False):
         p.save(newim,format="png")
         return newim
 
-@run_sync
-def get_image(fusionid):
-    fusionUrl = "https://raw.githubusercontent.com/Aegide/custom-fusion-sprites/main/CustomBattlers/" + fusionid
-    res = requests.get(fusionUrl)
+async def get_image(fusionid):
+    fusionUrl = "https://ghproxy.com/https://raw.githubusercontent.com/Aegide/custom-fusion-sprites/main/CustomBattlers/" + fusionid
+    async with httpx.AsyncClient() as client:
+        res = await client.get(fusionUrl)
     if res.status_code != 404:
         return(res2BytesIO(res))
     else:
-        fallbackFusionRepository = "https://raw.githubusercontent.com/Aegide/autogen-fusion-sprites/master/Battlers/"
+        fallbackFusionRepository = "https://ghproxy.com/https://raw.githubusercontent.com/Aegide/autogen-fusion-sprites/master/Battlers/"
         headId = fusionid.split(".")[0]
         fallbackFusionUrl = fallbackFusionRepository + headId + "/" + fusionid
-        res = requests.get(fallbackFusionUrl)
+        async with httpx.AsyncClient() as client:
+            res = await client.get(fallbackFusionUrl)
         return(res2BytesIO(res))
 
 fusion = on_command("融合", aliases={"融合"},priority=3)
@@ -78,6 +80,7 @@ async def _(event: MessageEvent, args: Message = CommandArg()):
         fusion_ids = [f"{b}.{a}.png",f"{a}.{b}.png"]
     try:
         msgs = [MessageSegment.image(await get_image(fusionid)) for fusionid in fusion_ids]
-    except:
+    except Exception as e:
+        logger.info(e)
         pass
     await fusion.finish(Message(msgs))
