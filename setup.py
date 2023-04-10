@@ -6,7 +6,7 @@ requirements = [r.strip() for r in open("requirements.txt", 'r', encoding='utf-8
 
 setuptools.setup(
   name="nonebot_plugin_pokemonfusion",
-  version="1.0.5",
+  version="1.0.6",
   author="IllusiveBull",
   author_email="xjn233@gmail.com",
   description="Nonebot2的Pokemon Infinite Fusion中文版融合计算器插件",
@@ -20,4 +20,5 @@ setuptools.setup(
   "Operating System :: OS Independent",
   ],
   install_requires=requirements,    
+  package_data = ["resources/pokemons.json"]
 )
