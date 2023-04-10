@@ -2,10 +2,11 @@ import setuptools
 
 with open("README.md", "r",encoding='utf-8') as fh:
   long_description = fh.read()
+requirements = [r.strip() for r in open("requirements.txt", 'r', encoding='utf-8').readlines()]
 
 setuptools.setup(
   name="nonebot_plugin_pokemonfusion",
-  version="1.0.0",
+  version="1.0.1",
   author="IllusiveBull",
   author_email="xjn233@gmail.com",
   description="Nonebot2的Pokemon Infinite Fusion中文版融合计算器插件",
@@ -18,4 +19,5 @@ setuptools.setup(
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   ],
+  install_requires=requirements,    
 )
