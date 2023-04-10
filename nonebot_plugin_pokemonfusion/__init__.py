@@ -1,8 +1,6 @@
 from nonebot.plugin import on_command
 from nonebot.adapters.onebot.v11 import Message, MessageSegment, MessageEvent
 from nonebot.params import CommandArg
-from nonebot.utils import run_sync
-from nonebot.log import logger
 
 import httpx
 import json
@@ -80,7 +78,6 @@ async def _(event: MessageEvent, args: Message = CommandArg()):
         fusion_ids = [f"{b}.{a}.png",f"{a}.{b}.png"]
     try:
         msgs = [MessageSegment.image(await get_image(fusionid)) for fusionid in fusion_ids]
-    except Exception as e:
-        logger.info(e)
+    except:
         pass
     await fusion.finish(Message(msgs))
