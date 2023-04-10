@@ -1,3 +1,4 @@
 httpx
 nonebot2>=2.0.0rc2
 Pillow
+nonebot-adapter-onebot
