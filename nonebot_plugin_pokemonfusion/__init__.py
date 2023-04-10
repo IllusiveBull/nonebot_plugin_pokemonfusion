@@ -1,3 +1,4 @@
+import nonebot
 from nonebot.plugin import on_command
 from nonebot.adapters.onebot.v11 import Message, MessageSegment, MessageEvent
 from nonebot.params import CommandArg
@@ -10,6 +11,10 @@ from PIL import Image
 import random
 from pathlib import Path
 
+try:
+    enable_transparent = nonebot.get_driver().config.enable_transparent
+except:
+    enable_transparent = False
 data_path = Path(__file__).parent/"resources/pokemons.json"
 with open(data_path,"r") as f:
     pokemons = json.load(f)
@@ -29,7 +34,7 @@ def get_3_similar_names(mylist,name):
         newlist.remove(result_list[i])
     return result_list
 
-def res2BytesIO(res, enable_transparent = False):
+def res2BytesIO(res):
     if enable_transparent == True:
         return BytesIO(res.content)
     else:
