@@ -1,0 +1,2 @@
+# nonebot_plugin_pokemonfusion
+Nonebot2的Pokemon Infinite Fusion中文版融合计算器插件
