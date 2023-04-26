@@ -14,7 +14,7 @@ enable_transparent = True
 可以使机器人发送透明png（由于QQ的透明通道有bug所以不建议）
 # 使用
 ```融合 [宝可梦A] [宝可梦B]```
-参数留空则随机融合，可在代码第33行修改```enable_transparent = True```
+参数留空则随机融合
 ![](/doc/1.png)
 # 相关链接
 作者及粉丝的原创精灵仓库 https://github.com/Aegide/custom-fusion-sprites
