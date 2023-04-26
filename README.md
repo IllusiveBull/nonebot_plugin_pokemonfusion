@@ -15,6 +15,7 @@ enable_transparent = True
 # 使用
 ```融合 [宝可梦A] [宝可梦B]```
 参数留空则随机融合
+
 ![](/doc/1.png)
 # 相关链接
 作者及粉丝的原创精灵仓库 https://github.com/Aegide/custom-fusion-sprites
