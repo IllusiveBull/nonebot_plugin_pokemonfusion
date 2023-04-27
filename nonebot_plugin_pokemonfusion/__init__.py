@@ -46,13 +46,13 @@ def res2BytesIO(res):
         return newim
 
 async def get_image(fusionid):
-    fusionUrl = "https://ghproxy.com/https://raw.githubusercontent.com/Aegide/custom-fusion-sprites/main/CustomBattlers/" + fusionid
+    fusionUrl = "https://raw.githubusercontent.com/Aegide/custom-fusion-sprites/main/CustomBattlers/" + fusionid
     async with httpx.AsyncClient() as client:
         res = await client.get(fusionUrl)
     if res.status_code != 404:
         return(res2BytesIO(res))
     else:
-        fallbackFusionRepository = "https://ghproxy.com/https://raw.githubusercontent.com/Aegide/autogen-fusion-sprites/master/Battlers/"
+        fallbackFusionRepository = "https://raw.githubusercontent.com/Aegide/autogen-fusion-sprites/master/Battlers/"
         headId = fusionid.split(".")[0]
         fallbackFusionUrl = fallbackFusionRepository + headId + "/" + fusionid
         async with httpx.AsyncClient() as client:
