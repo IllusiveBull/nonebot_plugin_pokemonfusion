@@ -1,4 +1,4 @@
-+ 原作者删除了raw.githubusercontent.com下所有自动生成的融合精灵导致大部分融合目前不可用
++ 8/19/2023 原作者删除了raw.githubusercontent.com下所有自动生成的融合精灵导致大部分融合目前不可用
 # 简介
 [Pokemon Infinite Fusion](https://www.pokecommunity.com/showthread.php?t=347883) 是 Schrroms 制作的宝可梦同人游戏，游戏中你可以融合任意两只宝可梦，目前共有 $420^2=176,400$ 种组合，其中150,444种由 [Japeal](https://japeal.com/pkm/) 生成，其余45,956种由作者和超过180k官方Discord和Reddit成员设计且不断更新。本仓库基于 [Nonebot2](http://v2.nonebot.dev/) 实现了由 [SDM0](https://twitter.com/SDM_0_) 创建，[Aegide](https://github.com/Aegide) 维护的 [融合计算器](https://aegide.github.io/) 的中文版插件。
 # 安装
