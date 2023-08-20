@@ -57,7 +57,12 @@ async def get_image(fusionid):
         fallbackFusionUrl = fallbackFusionRepository + headId + "/" + fusionid
         async with httpx.AsyncClient() as client:
             res = await client.get(fallbackFusionUrl)
-        return(res2BytesIO(res))
+        if res.status_code != 404:
+            return(res2BytesIO(res))
+        else:
+            async with httpx.AsyncClient() as client:
+                res1 = await client.get("https://raw.githubusercontent.com/Aegide/Aegide.github.io/master/default.png")
+            return(res2BytesIO(res1))
 
 fusion = on_command("融合", aliases={"融合"},priority=3)
 @fusion.handle()
