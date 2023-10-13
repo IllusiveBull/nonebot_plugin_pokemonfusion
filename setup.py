@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
   name="nonebot_plugin_pokemonfusion",
-  version="1.0.9",
+  version="1.1.0",
   author="IllusiveBull",
   author_email="xjn233@gmail.com",
   description="Nonebot2的Pokemon Infinite Fusion中文版融合计算器插件",
