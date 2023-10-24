@@ -2,6 +2,7 @@ import nonebot
 from nonebot.plugin import on_command
 from nonebot.adapters.onebot.v11 import Message, MessageSegment, MessageEvent
 from nonebot.params import CommandArg
+from nonebot.log import logger
 
 import httpx
 import json
@@ -11,10 +12,22 @@ from PIL import Image
 import random
 from pathlib import Path
 
-try:
-    enable_transparent = nonebot.get_driver().config.enable_transparent
-except:
-    enable_transparent = False
+nonebot_config = nonebot.get_driver().config.dict()
+config = {"enable_transparent": False,
+           "source": "gitlab",
+           "proxy": None}
+for i in config:
+    config[i] = nonebot_config.get("pokemonfusion_" + i, config[i])
+logger.info(config)
+sources = {"gitlab": {"custom":"https://gitlab.com/infinitefusion/sprites/-/raw/master/CustomBattlers/",
+                      "autogen":"https://gitlab.com/infinitefusion/sprites/-/raw/master/Battlers/"
+                      },
+           "fusioncalc":{"custom":"https://fusioncalc.com/wp-content/themes/twentytwentyone/pokemon/custom-fusion-sprites-main/CustomBattlers/",
+                         "autogen":"https://fusioncalc.com/wp-content/themes/twentytwentyone/pokemon/autogen-fusion-sprites-master/Battlers/"
+                         }
+            }
+source = sources[config["source"]]
+
 data_path = Path(__file__).parent/"resources/pokemons.json"
 with open(data_path,"r") as f:
     pokemons = json.load(f)
@@ -35,7 +48,7 @@ def get_3_similar_names(mylist,name):
     return result_list
 
 def res2BytesIO(res):
-    if enable_transparent == True:
+    if config["enable_transparent"] == True:
         return BytesIO(res.content)
     else:
         im = Image.open(BytesIO(res.content)).convert("RGBA")
@@ -46,22 +59,21 @@ def res2BytesIO(res):
         return newim
 
 async def get_image(fusionid):
-    fusionUrl = "https://fusioncalc.com/wp-content/themes/twentytwentyone/pokemon/custom-fusion-sprites-main/CustomBattlers/" + fusionid
-    async with httpx.AsyncClient() as client:
+    fusionUrl = source["custom"] + fusionid
+    async with httpx.AsyncClient(proxies = config["proxy"]) as client:
         res = await client.get(fusionUrl)
     if res.status_code != 404:
         return(res2BytesIO(res))
     else:
-        fallbackFusionRepository = "https://fusioncalc.com/wp-content/themes/twentytwentyone/pokemon/autogen-fusion-sprites-master/Battlers/"
         headId = fusionid.split(".")[0]
-        fallbackFusionUrl = fallbackFusionRepository + headId + "/" + fusionid
-        async with httpx.AsyncClient() as client:
+        fallbackFusionUrl = source["autogen"] + headId + "/" + fusionid
+        async with httpx.AsyncClient(proxies = config["proxy"]) as client:
             res = await client.get(fallbackFusionUrl)
         if res.status_code != 404:
             return(res2BytesIO(res))
         else:
-            async with httpx.AsyncClient() as client:
-                res1 = await client.get("https://raw.githubusercontent.com/Aegide/Aegide.github.io/master/default.png")
+            async with httpx.AsyncClient(proxies = config["proxy"]) as client:
+                res1 = await client.get("https://infinitefusion.gitlab.io/pokemon/question.png")
             return(res2BytesIO(res1))
 
 fusion = on_command("融合", aliases={"融合"},priority=3)
