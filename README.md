@@ -1,4 +1,4 @@
-+ 10/23/2023 更新了
++ 10/23/2023 添加了配置项
 + 10/13/2023 去discord找到了新的[融合计算器](https://fusioncalc.com/)
 + 10/12/2023 作者[库](https://github.com/Aegide/custom-fusion-sprites)被Github删了
 + 8/19/2023 原作者删除了raw.githubusercontent.com下所有自动生成的融合精灵导致大部分融合目前不可用
