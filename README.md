@@ -1,3 +1,4 @@
++ 10/23/2023 更新了
 + 10/13/2023 去discord找到了新的[融合计算器](https://fusioncalc.com/)
 + 10/12/2023 作者[库](https://github.com/Aegide/custom-fusion-sprites)被Github删了
 + 8/19/2023 原作者删除了raw.githubusercontent.com下所有自动生成的融合精灵导致大部分融合目前不可用
@@ -8,13 +9,11 @@
 或
 ```nb plugin install nonebot_plugin_pokemonfusion```
 # 配置
-在.env中添加
-
-```
-enable_transparent = True
-```
-
-可以使机器人发送透明png（由于QQ的透明通道有bug所以不建议）
+| 配置项 | 必填 | 默认值 | 说明 |
+|:-----:|:----:|:----:|:----:|
+| pokemonfusion_enable_transparent | 否 | False | 使机器人发送透明png（由于QQ的透明通道有bug所以不建议） |
+| pokemonfusion_proxy | 否 | None | 代理服务器地址(如http://127.0.0.1:7890) |
+| pokemonfusion_source | 否 | gitlab | 融合计算器图片源([gitlab](https://infinitefusion.gitlab.io/pokemon/)或[fusioncalc](https://fusioncalc.com/)) |
 # 使用
 ```融合 [宝可梦A] [宝可梦B]```
 参数留空则随机融合
