@@ -19,7 +19,7 @@ config = {"enable_transparent": False,
 for i in config:
     config[i] = nonebot_config.get("pokemonfusion_" + i, config[i])
 logger.info(config)
-sources = {"gitlab": {"custom":"https://gitlab.com/infinitefusion/sprites/-/raw/master/CustomBattlers/",
+sources = {"gitlab": {"custom":"https://gitlab.com/infinitefusion/sprites/-/raw/master/CustomBattlers/{n}/",
                       "autogen":"https://gitlab.com/infinitefusion/sprites/-/raw/master/Battlers/"
                       },
            "fusioncalc":{"custom":"https://fusioncalc.com/wp-content/themes/twentytwentyone/pokemon/custom-fusion-sprites-main/CustomBattlers/",
@@ -59,13 +59,14 @@ def res2BytesIO(res):
         return newim
 
 async def get_image(fusionid):
-    fusionUrl = source["custom"] + fusionid
+    headId = fusionid.split(".")[0]
+    fusionUrl = source["custom"].format(n=headId) + fusionid
+    logger.info(fusionUrl)
     async with httpx.AsyncClient(proxies = config["proxy"]) as client:
         res = await client.get(fusionUrl)
     if res.status_code != 404:
         return(res2BytesIO(res))
     else:
-        headId = fusionid.split(".")[0]
         fallbackFusionUrl = source["autogen"] + headId + "/" + fusionid
         async with httpx.AsyncClient(proxies = config["proxy"]) as client:
             res = await client.get(fallbackFusionUrl)
